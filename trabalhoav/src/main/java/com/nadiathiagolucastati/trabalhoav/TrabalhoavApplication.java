@@ -1,13 +1,13 @@
-package com.nadiathiagolucastati.trabalojeff;
+package com.nadiathiagolucastati.trabalhoav;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TrabalojeffApplication {
+public class TrabalhoavApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(TrabalojeffApplication.class, args);
+        SpringApplication.run(TrabalhoavApplication.class, args);
     }
 
 }
