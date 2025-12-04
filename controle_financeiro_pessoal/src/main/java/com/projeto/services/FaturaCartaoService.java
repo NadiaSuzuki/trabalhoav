@@ -30,6 +30,8 @@ public class FaturaCartaoService {
         this.cartaoCreditoRepo = cartaoCreditoRepo;
     }
 
+    /* =================== READ =================== */
+
     /** Não paginado, sem filtro */
     @Transactional(readOnly = true)
     public List<FaturaCartaoDTO> findAll() {
@@ -86,6 +88,8 @@ public class FaturaCartaoService {
         return findAllByCartao(cartaoCreditoId, Pageable.unpaged()).getContent();
     }
 
+    /* =================== FECHAR FATURA =================== */
+
     @Transactional
     public void fecharFatura(Integer cartaoCreditoId) {
         if (cartaoCreditoId == null) {
@@ -95,7 +99,16 @@ public class FaturaCartaoService {
         if (!cartaoCreditoRepo.existsById(Long.valueOf(cartaoCreditoId))) {
             throw new ObjectNotFoundException("Cartão de crédito não encontrado: id=" + cartaoCreditoId);
         }
+
+        // TODO: implementar regra de negócio de fechamento:
+        // - localizar fatura em aberto do cartão
+        // - calcular total
+        // - marcar como fechada / definir dataFechamento, etc.
+        //
+        // Por enquanto, só valida a existência do cartão e não faz nada na fatura.
     }
+
+    /* =================== PAGAR FATURA =================== */
 
     @Transactional
     public void pagarFatura(Integer cartaoCreditoId, Long faturaId) {
@@ -113,6 +126,5 @@ public class FaturaCartaoService {
         FaturaCartao fatura = faturaCartaoRepo.findById(faturaId)
                 .orElseThrow(() ->
                         new ObjectNotFoundException("Fatura não encontrada: id=" + faturaId));
-
     }
 }

@@ -41,7 +41,7 @@ public class CartaoCreditoDTO {
 
     public CartaoCreditoDTO(Long id, String bandeira, String emissor, String apelido,
                             LocalDate fechamentoFaturaDia, LocalDate vencimentoFaturaDia,
-                            int statusCartao, Integer usuarioId) {
+                            Integer statusCartao, Integer usuarioId) {
         this.id = id;
         this.bandeira = bandeira;
         this.emissor = emissor;
@@ -91,10 +91,10 @@ public class CartaoCreditoDTO {
         this.vencimentoFaturaDia = vencimentoFaturaDia;
     }
 
-    public int getStatusCartao() {
+    public Integer getStatusCartao() {
         return statusCartao;
     }
-    public void setStatusCartao(int statusCartao) {
+    public void setStatusCartao(Integer statusCartao) {
         this.statusCartao = statusCartao;
     }
     public Integer getUsuarioId() {
