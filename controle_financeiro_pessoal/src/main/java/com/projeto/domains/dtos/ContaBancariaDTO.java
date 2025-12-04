@@ -38,8 +38,8 @@ public class ContaBancariaDTO {
     @Column(nullable = false)
     private LocalDate dataSaldoInicial = LocalDate.now();
 
-    @Min(value = 1, message = "Status do cartão é inválido: use 1 (Ativa) ou 0 (Desativada)")
-    @Max(value = 0, message = "Status do cartão é inválido: use 1 (Ativa) ou 0 (Desativada)")
+    @Min(value = 0, message = "Status do cartão é inválido: use 0 (Ativa) ou 1 (Desativada)")
+    @Max(value = 1, message = "Status do cartão é inválido: use 0 (Ativa) ou 1 (Desativada)")
     private int status;
 
     @NotNull(message = "Usuario obrigatório")

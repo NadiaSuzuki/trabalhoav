@@ -22,16 +22,16 @@ public class CartaoCreditoDTO {
     @NotBlank(message = "o campo apelido é obrigatório")
     @Size(max = 80, message = "Apelido deve ter no maximo 80 caracteres")
     private String apelido;
-    @NotBlank(message = "Dia de fechamento da fatura é obrigatório")
+    @NotNull(message = "Dia de fechamento da fatura é obrigatório")
     @JsonFormat(pattern = "dd")
     @Column(nullable = false)
     private LocalDate fechamentoFaturaDia = LocalDate.now();
-    @NotBlank(message = "Dia de vencimento da fatura é obrigatório")
+    @NotNull(message = "Dia de vencimento da fatura é obrigatório")
     @JsonFormat(pattern = "dd")
     @Column(nullable = false)
     private LocalDate vencimentoFaturaDia = LocalDate.now();
-    @Min(value = 1, message = "Status do cartão invalido: utilize 1 (DESBLOQUEADO) ou 0 (BLOQUEADO)")
-    @Max(value = 0, message = "Status do Cartão invalido: utilize 1 (DESBLOQUEADO) ou 0 (BLOQUEADO)")
+    @Min(value = 0, message = "Status do cartão invalido: utilize 0 (DESBLOQUEADO) ou 1 (BLOQUEADO)")
+    @Max(value = 1, message = "Status do Cartão invalido: utilize 0 (DESBLOQUEADO) ou 1 (BLOQUEADO)")
     private int statusCartao;
     @NotNull(message = "Usuário obrigatório!")
     private Integer usuarioId;

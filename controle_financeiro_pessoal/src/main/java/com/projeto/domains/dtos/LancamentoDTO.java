@@ -50,8 +50,8 @@ public class LancamentoDTO {
     @Max(value = 3, message = "Metodo de pagamento inválido, use 0 (Conta), 1 (Cartao), 2 (Dinheiro) ou 3 (Pix)")
     private int MeioPagamento;
 
-    @Min(value = 1, message = "Tipo de lançamento inválido, use 1 para (Pagar) ou  para 0 (Receber)")
-    @Max(value = 0, message = "Tipo de lançamento inválido, use 1 para (Pagar) ou  para 0 (Receber)")
+    @Min(value = 0, message = "Tipo de lançamento inválido, use 1 para (Pagar) ou  para 0 (Receber)")
+    @Max(value = 1, message = "Tipo de lançamento inválido, use 1 para (Pagar) ou  para 0 (Receber)")
     private int TipoLancamento;
 
     @NotNull(message = "Usuario necessário")

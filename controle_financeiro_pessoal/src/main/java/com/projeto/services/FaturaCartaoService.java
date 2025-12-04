@@ -25,12 +25,10 @@ public class FaturaCartaoService {
     private final CartaoCreditoRepository cartaoCreditoRepo;
 
     public FaturaCartaoService(FaturaCartaoRepository faturaCartaoRepo,
-                              CartaoCreditoRepository cartaoCreditoRepo) {
+                               CartaoCreditoRepository cartaoCreditoRepo) {
         this.faturaCartaoRepo = faturaCartaoRepo;
         this.cartaoCreditoRepo = cartaoCreditoRepo;
     }
-
-    /* =================== READ =================== */
 
     /** Não paginado, sem filtro */
     @Transactional(readOnly = true)
@@ -56,19 +54,17 @@ public class FaturaCartaoService {
         return FaturaCartaoMapper.toDtoPage(page);
     }
 
-    /** Paginado, filtrando por grupo */
+    /** Paginado, filtrando por cartão */
     @Transactional(readOnly = true)
     public Page<FaturaCartaoDTO> findAllByCartao(Integer cartaoCreditoId, Pageable pageable) {
         if (cartaoCreditoId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "cartaoCreditoId é obrigatório");
         }
 
-        // valida existência do grupo para erro claro
         if (!cartaoCreditoRepo.existsById(Long.valueOf(cartaoCreditoId))) {
-            throw new ObjectNotFoundException("CartaoCredito não encontrado: id=" + cartaoCreditoId);
+            throw new ObjectNotFoundException("Cartão de crédito não encontrado: id=" + cartaoCreditoId);
         }
 
-        // ✅ trate unpaged aqui
         final Pageable effective;
         if (pageable == null || pageable.isUnpaged()) {
             effective = Pageable.unpaged();
@@ -84,10 +80,39 @@ public class FaturaCartaoService {
         return FaturaCartaoMapper.toDtoPage(page);
     }
 
-    /** Não paginado, filtrando por grupo (reaproveita o paginado com unpaged) */
+    /** Não paginado, filtrando por cartão */
     @Transactional(readOnly = true)
     public List<FaturaCartaoDTO> findAllByCartao(Integer cartaoCreditoId) {
         return findAllByCartao(cartaoCreditoId, Pageable.unpaged()).getContent();
     }
-    
+
+    @Transactional
+    public void fecharFatura(Integer cartaoCreditoId) {
+        if (cartaoCreditoId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "cartaoCreditoId é obrigatório");
+        }
+
+        if (!cartaoCreditoRepo.existsById(Long.valueOf(cartaoCreditoId))) {
+            throw new ObjectNotFoundException("Cartão de crédito não encontrado: id=" + cartaoCreditoId);
+        }
+    }
+
+    @Transactional
+    public void pagarFatura(Integer cartaoCreditoId, Long faturaId) {
+        if (cartaoCreditoId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "cartaoCreditoId é obrigatório");
+        }
+        if (faturaId == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "faturaId é obrigatório");
+        }
+
+        if (!cartaoCreditoRepo.existsById(Long.valueOf(cartaoCreditoId))) {
+            throw new ObjectNotFoundException("Cartão de crédito não encontrado: id=" + cartaoCreditoId);
+        }
+
+        FaturaCartao fatura = faturaCartaoRepo.findById(faturaId)
+                .orElseThrow(() ->
+                        new ObjectNotFoundException("Fatura não encontrada: id=" + faturaId));
+
+    }
 }

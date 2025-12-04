@@ -21,8 +21,8 @@ public class CentroCustoDTO {
     @NotNull(message = "Usuario é obrigatório")
     private Integer usuarioId;
 
-    @Min(value = 1, message = "Status inválido: use 1 (ATIVO) ou 0 (INATIVO)")
-    @Max(value = 0, message = "Status inválido: use 1 (ATIVO) ou 0 (INATIVO)")
+    @Min(value = 0, message = "Status inválido: use 1 (ATIVO) ou 0 (INATIVO)")
+    @Max(value = 1, message = "Status inválido: use 1 (ATIVO) ou 0 (INATIVO)")
     private Integer status;
 
     public CentroCustoDTO() {}
