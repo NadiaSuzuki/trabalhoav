@@ -1,3 +1,0 @@
-# gestaofinanceirapessoal
-# gestaofinanceirapessoal
-# gestaofinanceirapessoal
